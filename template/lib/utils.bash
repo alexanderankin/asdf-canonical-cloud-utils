@@ -3,8 +3,8 @@
 set -euo pipefail
 
 # TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for <YOUR TOOL>.
-GH_REPO="<TOOL REPO>"
-TOOL_NAME="<YOUR TOOL>"
+GH_REPO="https://github.com/canonical/cloud-utils.git"
+TOOL_NAME="cloud-utils"
 TOOL_TEST="<TOOL CHECK>"
 
 fail() {
