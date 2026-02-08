@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+current_script_path=${BASH_SOURCE[0]}
+plugin_dir=$(dirname "$(dirname "${current_script_path}")")
+
+# shellcheck source=./template/lib/utils.bash
+source "${plugin_dir}/template/lib/utils.bash"
+
+query=${1:-}
+
+if [[ -n ${query} ]]; then fail "${ASDF_PLUGIN} does not support latest-stable with a \$query"; fi
+
+list_all_versions | sort_versions | xargs echo | tac | head -n 1
