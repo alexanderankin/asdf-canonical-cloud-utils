@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if uname -s | grep -q Darwin; then
+	export PATH="/opt/homebrew/bin:$PATH"
+	export PATH="/opt/homebrew/opt/gnu-getopt/bin:$PATH"
+	export PATH="${ASDF_INSTALL_PATH}/shims:$PATH"
+fi

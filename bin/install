@@ -12,25 +12,9 @@ mkdir -p "${ASDF_INSTALL_PATH}/bin"
 mkdir -p "${ASDF_INSTALL_PATH}/libexec"
 mkdir -p "${ASDF_INSTALL_PATH}/shims"
 
-cp -r "${ASDF_DOWNLOAD_PATH}/bin"/* "${ASDF_INSTALL_PATH}/libexec/"
+cp -r "${ASDF_DOWNLOAD_PATH}/bin"/* "${ASDF_INSTALL_PATH}/bin/"
 
-if [[ "$(uname -s)" == "Darwin" ]]; then
+if uname -s | grep -q Darwin; then
 	echo -e "#!/usr/bin/env bash\nexec mkisofs \"\$@\"" > "${ASDF_INSTALL_PATH}/shims/genisoimage"
 	chmod +x "${ASDF_INSTALL_PATH}/shims/genisoimage"
 fi
-
-for each_bin in "${ASDF_DOWNLOAD_PATH}/bin"/*; do
-	bin="${each_bin##*/}";
-	bin_path="${ASDF_INSTALL_PATH}/bin/${bin}"
-	orig_path="${ASDF_INSTALL_PATH}/libexec/${bin}"
-	(
-		echo "#!/usr/bin/env bash"
-		if [[ "$(uname -s)" == "Darwin" ]]; then
-			echo "export PATH=\"/opt/homebrew/bin:\$PATH\""
-			echo "export PATH=\"/opt/homebrew/opt/gnu-getopt/bin:\$PATH\""
-			echo "export PATH=\"${ASDF_INSTALL_PATH}/shims:\$PATH\""
-		fi
-		echo "exec \"${orig_path}\" \"\$@\""
-	) > "${bin_path}"
-	chmod +x "${bin_path}"
-done

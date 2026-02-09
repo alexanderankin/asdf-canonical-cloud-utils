@@ -11,3 +11,11 @@ this is an asdf plugin to install Canonical's [cloud-utils](https://github.com/c
     asdf install cloud-utils latest
     (cd; asdf set cloud-utils latest;)
     ```
+
+## MacOS notes
+
+on MacOS, this plugin requires additional brew packages:
+
+```shell
+brew install cdrtools qemu gnu-getopt
+```
